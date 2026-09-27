@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:artifact": "VITE_STANDALONE=true vite build && node scripts/build-artifact.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit"
   },
