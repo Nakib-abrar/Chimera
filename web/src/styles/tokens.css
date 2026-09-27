@@ -90,16 +90,19 @@
    ========================================================================== */
 :root,
 :root[data-theme="dark"] {
-  --canvas: #0b0e0d;
-  --surface: #121614;
-  --surface-raised: #1a201d;
-  --surface-inset: #0e1211;
-  --border: #242b28;
-  --border-strong: #38423d;
+  /* Reduced-contrast palette: the tonal range between ground and text is
+     compressed for a calmer, lower-glare surface (darkest surfaces lifted,
+     text tokens dimmed toward the background). */
+  --canvas: #0e1211;
+  --surface: #141817;
+  --surface-raised: #1b211e;
+  --surface-inset: #111514;
+  --border: #272e2a;
+  --border-strong: #363f3a;
 
-  --ink: #f3f6f2;
-  --body: #b9c1bb;
-  --mute: #7c857f;
+  --ink: #cdd3cd;
+  --body: #949b95;
+  --mute: #6d756f;
 
   --accent-offensive: #9fe870;
   --accent-offensive-hover: #cdffad;
@@ -142,16 +145,18 @@
    LIGHT THEME — 2.2 (mirrors DESIGN.md light values)
    ========================================================================== */
 :root[data-theme="light"] {
-  --canvas: #ffffff;
-  --surface: #f4f6f2;
-  --surface-raised: #ffffff;
-  --surface-inset: #eef1ec;
-  --border: #e3e7e1;
-  --border-strong: #c8cec6;
+  /* Reduced-contrast palette: off-white ground and greyed text instead of
+     pure white behind near-black. */
+  --canvas: #f8f9f6;
+  --surface: #eef1ec;
+  --surface-raised: #f8f9f6;
+  --surface-inset: #e8ebe6;
+  --border: #e2e5df;
+  --border-strong: #ced3cc;
 
-  --ink: #0e0f0c;
-  --body: #454745;
-  --mute: #868685;
+  --ink: #34372f;
+  --body: #5d605a;
+  --mute: #979a94;
 
   --accent-offensive: #5fa834;
   --accent-offensive-hover: #4e9028;

@@ -38,8 +38,9 @@ export function ProfileSwitcher({
 
   useEffect(() => {
     if (!transitionTo) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const stepMs = reduce ? 90 : 420;
+    // Switching fully stops and cold-starts a profile — make it a felt 3–5s.
+    const totalMs = 3000 + Math.random() * 2000;
+    const stepMs = totalMs / (STEPS.length + 1);
     let i = 0;
     setStepIdx(0);
     const iv = window.setInterval(() => {

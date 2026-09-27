@@ -25,8 +25,9 @@ export function ProfileLanding() {
       return;
     }
     setTransitionTo(p);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const stepMs = reduce ? 90 : 430;
+    // Entering a profile cold-starts it — make it a felt 3–5s.
+    const totalMs = 3000 + Math.random() * 2000;
+    const stepMs = totalMs / (STEPS.length + 1);
     let i = 0;
     setStepIdx(0);
     const iv = window.setInterval(() => {
