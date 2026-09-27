@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Check, FileText, Network, TerminalSquare } from "lucide-react";
 import type { CaseStatus, EvidenceItem, GraphEdge, GraphNode, SocCase } from "@/lib/types";
 import { GraphCanvas } from "@/components/graph/GraphCanvas";
+import { clickable } from "@/lib/ui";
 import { Screen, ScreenHeader, Section } from "@/components/shell/Screen";
 import { Card, SegmentedControl, SeverityPill, StatusChip } from "@/components/ui";
 import { socCases } from "@/data/mock";
@@ -86,7 +87,14 @@ export function CasesIR() {
           <Section title="IR checklist">
             <div className="col gap-sm">
               {checklist.map((c) => (
-                <div key={c.id} className={s.checklistItem} onClick={() => toggleCheck(c.id)} style={{ cursor: "pointer" }}>
+                <div
+                  key={c.id}
+                  className={s.checklistItem}
+                  style={{ cursor: "pointer" }}
+                  aria-pressed={c.done}
+                  aria-label={c.label}
+                  {...clickable(() => toggleCheck(c.id))}
+                >
                   <span className={off.taskCheck} data-done={c.done}>{c.done && <Check size={13} />}</span>
                   <span className="t-body-sm" style={{ textDecoration: c.done ? "line-through" : "none", color: c.done ? "var(--mute)" : "var(--ink)" }}>{c.label}</span>
                 </div>

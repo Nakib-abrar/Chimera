@@ -1,8 +1,26 @@
+import type { KeyboardEvent } from "react";
 import type { Severity } from "@/lib/types";
 
 /** Tiny classnames joiner. */
 export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
+}
+
+/** Props that make a non-button element behave like a button for keyboard users
+ *  (§9.3 full keyboard operation). Spread onto the element instead of a bare
+ *  onClick: `<div {...clickable(fn)}>`. */
+export function clickable(onActivate: () => void) {
+  return {
+    role: "button" as const,
+    tabIndex: 0,
+    onClick: onActivate,
+    onKeyDown: (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onActivate();
+      }
+    },
+  };
 }
 
 /** Severity metadata — color token, label, and a distinct icon SHAPE so meaning

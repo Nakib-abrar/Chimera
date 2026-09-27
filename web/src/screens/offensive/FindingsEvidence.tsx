@@ -25,7 +25,7 @@ import {
   TtpChip,
   useToast,
 } from "@/components/ui";
-import { SEVERITY_META, SEVERITY_ORDER, cx } from "@/lib/ui";
+import { SEVERITY_META, SEVERITY_ORDER, clickable, cx } from "@/lib/ui";
 import { findings } from "@/data/mock";
 import s from "./offensive.module.css";
 
@@ -73,11 +73,12 @@ export function FindingsView({ embedded }: { embedded?: boolean }) {
             <div
               className={s.sevGroupHead}
               style={{ ["--sev" as string]: meta.token }}
-              onClick={() => {
+              aria-expanded={!groupCollapsed}
+              {...clickable(() => {
                 const next = new Set(collapsedGroups);
                 next.has(sev) ? next.delete(sev) : next.add(sev);
                 setCollapsedGroups(next);
-              }}
+              })}
             >
               <ChevronDown size={16} style={{ transform: groupCollapsed ? "rotate(-90deg)" : "none", transition: "transform 120ms", color: "var(--mute)" }} />
               <SeverityIcon severity={sev} size={13} />
@@ -97,7 +98,12 @@ export function FindingsView({ embedded }: { embedded?: boolean }) {
                         onChange={() => toggle(selected, f.id, setSelected)}
                         aria-label={`Select ${f.title}`}
                       />
-                      <span onClick={() => toggle(expanded, f.id, setExpanded)} style={{ cursor: "pointer" }}>
+                      <span
+                        {...clickable(() => toggle(expanded, f.id, setExpanded))}
+                        style={{ cursor: "pointer" }}
+                        aria-label={open ? "Collapse evidence" : "Expand evidence"}
+                        aria-expanded={open}
+                      >
                         <SeverityPill severity={f.severity} />
                       </span>
                       <button className="t-body-sm-strong grow" style={{ textAlign: "left" }} onClick={() => setDetail(f)}>

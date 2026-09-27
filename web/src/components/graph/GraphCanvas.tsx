@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Crosshair, Layers, Maximize2, Minus, Plus, Search } from "lucide-react";
 import type { GraphEdge, GraphNode } from "@/lib/types";
 import { SEVERITY_META } from "@/lib/ui";
@@ -74,8 +74,13 @@ export function GraphCanvas({
     return { x: p.x, y: p.y };
   }, []);
 
-  const onWheel = useCallback(
-    (e: React.WheelEvent) => {
+  // Wheel zoom must run through a NON-passive native listener: React registers
+  // onWheel as passive, so a React handler's preventDefault() is ignored and the
+  // page scrolls while zooming (and logs a warning).
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const handler = (e: WheelEvent) => {
       e.preventDefault();
       const vb = toVB(e.clientX, e.clientY);
       setT((prev) => {
@@ -85,9 +90,10 @@ export function GraphCanvas({
         const worldY = (vb.y - prev.ty) / prev.k;
         return { k, tx: vb.x - k * worldX, ty: vb.y - k * worldY };
       });
-    },
-    [toVB],
-  );
+    };
+    svg.addEventListener("wheel", handler, { passive: false });
+    return () => svg.removeEventListener("wheel", handler);
+  }, [toVB]);
 
   const onPointerDown = useCallback(
     (e: React.PointerEvent) => {
@@ -134,7 +140,6 @@ export function GraphCanvas({
         className={g.svg}
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        onWheel={onWheel}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -222,7 +227,7 @@ export function GraphCanvas({
                   cx={p.x}
                   cy={p.y}
                   r={r}
-                  fill={n.type === "cluster" ? "var(--surface-raised)" : "var(--surface-raised)"}
+                  fill="var(--surface-raised)"
                   stroke={color}
                   strokeWidth={n.type === "cluster" ? 1.5 : 2}
                   strokeDasharray={n.type === "cluster" ? "4 3" : undefined}

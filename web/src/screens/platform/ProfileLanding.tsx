@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { Check, Loader2, ShieldCheck, Swords } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import type { Profile } from "@/lib/types";
+import { clickable } from "@/lib/ui";
 import { Button, StatusChip } from "@/components/ui";
 import { ChimeraMark } from "@/components/shell/ChimeraMark";
 import { PlatformFrame } from "./PlatformFrame";
@@ -111,15 +112,15 @@ export function ProfileLanding() {
         <div className="col gap-sm">
           <span className="t-caption-caps">Recent</span>
           <div className={s.recentStrip}>
-            <span className={s.recentChip} onClick={() => enter("offensive")}>
+            <span className={s.recentChip} {...clickable(() => enter("offensive"))} aria-label="Open acme-corp">
               <span className={shell.pillDot} style={{ background: "var(--accent-offensive)" }} /> acme-corp
               <StatusChip tone="positive">Active</StatusChip>
             </span>
-            <span className={s.recentChip} onClick={() => enter("offensive")}>
+            <span className={s.recentChip} {...clickable(() => enter("offensive"))} aria-label="Open northwind-pentest">
               <span className={shell.pillDot} style={{ background: "var(--accent-offensive)" }} /> northwind-pentest
               <StatusChip tone="warning">Reporting</StatusChip>
             </span>
-            <span className={s.recentChip} onClick={() => enter("defensive")}>
+            <span className={s.recentChip} {...clickable(() => enter("defensive"))} aria-label="Open cred-stuffing-vpn">
               <span className={shell.pillDot} style={{ background: "var(--accent-defensive)" }} /> cred-stuffing-vpn
               <StatusChip tone="warning">Contained</StatusChip>
             </span>

@@ -24,10 +24,12 @@ export function Button({
   iconRight,
   className,
   children,
+  type = "button",
   ...rest
 }: ButtonProps) {
   return (
     <button
+      type={type}
       className={cx(
         s.btn,
         s[`btn--${variant}`],

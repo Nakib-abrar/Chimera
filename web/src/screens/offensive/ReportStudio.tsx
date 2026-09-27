@@ -4,7 +4,7 @@ import type { Severity } from "@/lib/types";
 import { Screen, ScreenHeader } from "@/components/shell/Screen";
 import { Button, SeverityPill, StatusChip, Textarea, useToast } from "@/components/ui";
 import { findings } from "@/data/mock";
-import { SEVERITY_ORDER } from "@/lib/ui";
+import { SEVERITY_ORDER, clickable } from "@/lib/ui";
 import s from "./offensive.module.css";
 
 const FORMATS = [
@@ -78,7 +78,15 @@ export function ReportStudio() {
       {step === 1 && (
         <div className={s.targetGrid}>
           {FORMATS.map((fmt) => (
-            <div key={fmt.id} className={s.formatCard} data-selected={format === fmt.id} onClick={() => fmt.available && setFormat(fmt.id)} style={{ opacity: fmt.available ? 1 : 0.6 }}>
+            <div
+              key={fmt.id}
+              className={s.formatCard}
+              data-selected={format === fmt.id}
+              aria-pressed={format === fmt.id}
+              aria-label={`${fmt.name} (${fmt.ext})`}
+              style={{ opacity: fmt.available ? 1 : 0.6 }}
+              {...(fmt.available ? clickable(() => setFormat(fmt.id)) : { "aria-disabled": true })}
+            >
               <div className="row between">
                 <FileText size={18} style={{ color: "var(--accent)" }} />
                 {format === fmt.id && <StatusChip tone="accent" dot>Selected</StatusChip>}

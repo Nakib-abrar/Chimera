@@ -103,7 +103,7 @@ export function SkillImportWizard({
               Review before this goes live — sensitivity and tool-dependency fields control the safety engines.
             </span>
           </div>
-          <div className="formGrid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-lg)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--space-lg)" }}>
             <Field label="Name"><TextInput mono defaultValue="graphql-introspect" /></Field>
             <Field label={`Platforms`}><TextInput defaultValue={platform} /></Field>
             <AiField label="Tactic" value="Reconnaissance" />

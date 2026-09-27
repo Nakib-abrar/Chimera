@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Activity, BellRing, FolderOpen, HeartPulse } from "lucide-react";
 import { Screen, ScreenHeader, Section } from "@/components/shell/Screen";
+import { clickable } from "@/lib/ui";
 import { Card, KpiTile, SeverityPill, StatusChip } from "@/components/ui";
 import { alerts, attackHeatmap, attackTactics, monitoredAssets, socCases } from "@/data/mock";
 import s from "./defensive.module.css";
@@ -96,7 +97,8 @@ export function SecurityOpsOverview() {
                       className={s.heatCell}
                       style={{ background: heatColor(cov), color: cov >= 2 ? "var(--on-accent)" : "var(--mute)" }}
                       title={`${row.technique} · ${attackTactics[i]} · coverage ${cov}/3`}
-                      onClick={() => navigate("/defensive/triage")}
+                      aria-label={`${row.technique} ${attackTactics[i]}, coverage ${cov} of 3`}
+                      {...clickable(() => navigate("/defensive/triage"))}
                     >
                       {cov > 0 ? cov : ""}
                     </div>

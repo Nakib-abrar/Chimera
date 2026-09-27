@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, ChevronRight, GripVertical, Play, Terminal } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { clickable } from "@/lib/ui";
 import { CodeBlock, Sparkline, StatusChip, Tabs, agentStatusLabel, useToast } from "@/components/ui";
 import { StatusDot } from "@/components/ui";
 import { chatSeed, orchestratorTree, planTasks } from "@/data/mock";
@@ -31,7 +32,9 @@ export function LiveOpsConsole() {
               key={node.id}
               className={`${s.orchNode} ${node.role === "subagent" ? s.orchNodeSub : ""}`}
               data-role={node.role}
-              onClick={() => setExpandedAgent(expandedAgent === node.id ? null : node.id)}
+              aria-expanded={expandedAgent === node.id}
+              aria-label={`${node.name} — ${agentStatusLabel(node.status)}`}
+              {...clickable(() => setExpandedAgent(expandedAgent === node.id ? null : node.id))}
             >
               <div className={s.orchNodeTop}>
                 <StatusDot status={node.status} />

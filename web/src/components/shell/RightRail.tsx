@@ -12,7 +12,9 @@ import {
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import type { ChatMessage, ChatMode, ToolCall } from "@/lib/types";
-import { Button, SegmentedControl, StatusDot } from "@/components/ui";
+import { clickable } from "@/lib/ui";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+import { Button, SegmentedControl, StatusDot, useToast } from "@/components/ui";
 import { ChimeraMark } from "./ChimeraMark";
 import s from "./shell.module.css";
 
@@ -34,7 +36,7 @@ function ToolCallCard({ call, subagent }: { call: ToolCall; subagent?: string })
           : "var(--accent)";
   return (
     <div className={`${s.toolCard} ${subagent ? s.toolCardNested : ""}`}>
-      <div className={s.toolCardHead} onClick={() => setOpen((v) => !v)} role="button" tabIndex={0}>
+      <div className={s.toolCardHead} aria-expanded={open} aria-label="Toggle tool output" {...clickable(() => setOpen((v) => !v))}>
         <ChevronRight size={14} style={{ transform: open ? "rotate(90deg)" : "none", transition: "transform 120ms", color: "var(--mute)", flex: "none" }} />
         <Terminal size={14} style={{ color: "var(--mute)", flex: "none" }} />
         <span className={s.toolCmd}>{call.command}</span>
@@ -53,6 +55,7 @@ function ToolCallCard({ call, subagent }: { call: ToolCall; subagent?: string })
 
 function MessageView({ m }: { m: ChatMessage }) {
   const { approvals, resolveApproval } = useApp();
+  const toast = useToast();
   if (m.author === "operator") {
     return <div className={s.msgOperator}>{m.text}</div>;
   }
@@ -61,7 +64,9 @@ function MessageView({ m }: { m: ChatMessage }) {
       <div className={s.msgSystem}>
         <Check size={12} style={{ color: "var(--positive)" }} />
         {m.checkpoint?.label}
-        <button className={s.rollback}>· Rollback to here</button>
+        <button className={s.rollback} onClick={() => toast.push("Rolled back to this checkpoint.", { tone: "info" })}>
+          · Rollback to here
+        </button>
       </div>
     );
   }
@@ -106,7 +111,9 @@ export function RightRail({
   const [draft, setDraft] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [width, setWidth] = useState(380);
-  const [chips, setChips] = useState<string[]>(["@scope.yaml"]);
+  const [chips, setChips] = useState<{ id: number; label: string }[]>([{ id: 0, label: "@scope.yaml" }]);
+  const chipId = useRef(1);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const resizing = useRef(false);
 
@@ -132,7 +139,10 @@ export function RightRail({
     resizing.current = false;
   };
 
-  if (collapsed) {
+  // Collapse to the slim tab is a desktop-only affordance; below 1024px the rail
+  // is an overlay driven by `open`, so honoring `collapsed` there would hide it
+  // with no way back.
+  if (collapsed && isDesktop) {
     return (
       <div className={s.railCollapsed}>
         <button className={s.railTab} onClick={() => setCollapsed(false)} aria-label="Expand chat">
@@ -168,9 +178,11 @@ export function RightRail({
                 </button>
               </div>
               <div className="row gap-xs">
-                <button className={s.railTab} onClick={() => setCollapsed(true)} aria-label="Collapse chat">
-                  <ChevronRight />
-                </button>
+                {isDesktop && (
+                  <button className={s.railTab} onClick={() => setCollapsed(true)} aria-label="Collapse chat">
+                    <ChevronRight />
+                  </button>
+                )}
                 <button className={`${s.railTab} ${s.railToggleBtn}`} onClick={onClose} aria-label="Close chat">
                   <X />
                 </button>
@@ -213,9 +225,9 @@ export function RightRail({
             {chips.length > 0 && (
               <div className={s.chips}>
                 {chips.map((c) => (
-                  <span key={c} className={s.ctxChip}>
-                    {c}
-                    <button onClick={() => setChips((prev) => prev.filter((x) => x !== c))} aria-label={`Remove ${c}`}>
+                  <span key={c.id} className={s.ctxChip}>
+                    {c.label}
+                    <button onClick={() => setChips((prev) => prev.filter((x) => x.id !== c.id))} aria-label={`Remove ${c.label}`}>
                       <X size={11} />
                     </button>
                   </span>
@@ -223,7 +235,11 @@ export function RightRail({
               </div>
             )}
             <div className={s.inputRow}>
-              <button className={s.railTab} onClick={() => setChips((p) => [...p, "@context"])} aria-label="Attach context">
+              <button
+                className={s.railTab}
+                onClick={() => setChips((p) => [...p, { id: chipId.current++, label: "@context" }])}
+                aria-label="Attach context"
+              >
                 <AtSign size={16} />
               </button>
               <textarea

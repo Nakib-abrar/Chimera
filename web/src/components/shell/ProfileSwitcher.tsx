@@ -75,7 +75,7 @@ export function ProfileSwitcher({
         <div className={s.checklist}>
           {STEPS.map((step, i) => (
             <div key={step} className={s.checkRow} data-done={i <= stepIdx}>
-              {i < stepIdx ? <Check /> : i === stepIdx ? <Loader2 className="spin" style={{ color: "var(--accent)", animation: "chimera-spin 0.8s linear infinite" }} /> : <span style={{ width: 16 }} />}
+              {i < stepIdx ? <Check /> : i === stepIdx ? <Loader2 style={{ color: "var(--accent)", animation: "chimera-spin 0.8s linear infinite" }} /> : <span style={{ width: 16 }} />}
               {step}
             </div>
           ))}
