@@ -1,0 +1,221 @@
+/* =============================================================================
+   Chimera Console — Design Tokens (Section 2)
+   Semantic tokens only. Components never reference raw hex.
+   Theme is set on <html data-theme="dark|light">.
+   Active profile accent is aliased on any element with data-profile.
+   ========================================================================== */
+
+:root {
+  /* ---- Spacing (4px base, Wise scale) — 2.4 ---- */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+
+  /* ---- Radius — 2.4 ---- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* ---- Typography faces — 2.3 ---- */
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Type scale (rem-based so font-scale multiplies the whole system) ---- */
+  --fs-display-lg: 2.5rem;
+  --lh-display-lg: 2.75rem;
+  --fs-display-md: 1.75rem;
+  --lh-display-md: 2.125rem;
+  --fs-heading-lg: 1.375rem;
+  --lh-heading-lg: 1.75rem;
+  --fs-heading-md: 1.125rem;
+  --lh-heading-md: 1.5rem;
+  --fs-heading-sm: 0.9375rem;
+  --lh-heading-sm: 1.25rem;
+  --fs-body-md: 0.9375rem;
+  --lh-body-md: 1.375rem;
+  --fs-body-sm: 0.8125rem;
+  --lh-body-sm: 1.125rem;
+  --fs-caption: 0.75rem;
+  --lh-caption: 1rem;
+  --fs-mono-md: 0.84375rem;
+  --lh-mono-md: 1.25rem;
+  --fs-mono-sm: 0.75rem;
+  --lh-mono-sm: 1.125rem;
+  --fs-button: 0.875rem;
+  --lh-button: 1.25rem;
+
+  /* ---- Motion — 9.5 ---- */
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 240ms;
+  --motion-switch: 600ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---- Layout metrics ---- */
+  --topbar-h: 56px;
+  --nav-w-collapsed: 64px;
+  --nav-w-expanded: 220px;
+  --rail-w: 380px;
+  --z-nav: 40;
+  --z-drawer: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+  --z-switch: 90;
+}
+
+/* -----------------------------------------------------------------------------
+   Font-scale control — 2.3 (root font-size multiplier)
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-font-scale="default"] {
+  font-size: 16px;
+}
+:root[data-font-scale="compact"] {
+  font-size: 14.4px; /* 0.9x */
+}
+:root[data-font-scale="comfortable"] {
+  font-size: 17.6px; /* 1.1x */
+}
+
+/* =============================================================================
+   DARK THEME (console default) — 2.2
+   ========================================================================== */
+:root,
+:root[data-theme="dark"] {
+  --canvas: #0b0e0d;
+  --surface: #121614;
+  --surface-raised: #1a201d;
+  --surface-inset: #0e1211;
+  --border: #242b28;
+  --border-strong: #38423d;
+
+  --ink: #f3f6f2;
+  --body: #b9c1bb;
+  --mute: #7c857f;
+
+  --accent-offensive: #9fe870;
+  --accent-offensive-hover: #cdffad;
+  --on-accent-offensive: #0e130c;
+  --accent-defensive: #38c8ff;
+  --accent-defensive-hover: #8fe0ff;
+  --on-accent-defensive: #04141c;
+  --accent-neutral: #c5cbc6;
+  --accent-neutral-hover: #dfe4df;
+  --on-accent-neutral: #10130f;
+
+  /* Severity (dark column) — 2.2 */
+  --sev-critical: #ff5b64;
+  --sev-high: #ff9d5c;
+  --sev-medium: #ffd11a;
+  --sev-low: #5cc8ff;
+  --sev-info: #868e88;
+  --sev-critical-bg: rgba(255, 91, 100, 0.14);
+  --sev-high-bg: rgba(255, 157, 92, 0.14);
+  --sev-medium-bg: rgba(255, 209, 26, 0.14);
+  --sev-low-bg: rgba(92, 200, 255, 0.14);
+  --sev-info-bg: rgba(134, 142, 136, 0.14);
+
+  /* Status / semantic — 2.2 */
+  --positive: #3ec96a;
+  --warning: #ffd11a;
+  --negative: #ff5b64;
+  --positive-bg: rgba(62, 201, 106, 0.14);
+  --warning-bg: rgba(255, 209, 26, 0.14);
+  --negative-bg: rgba(255, 91, 100, 0.14);
+
+  --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-drawer: -8px 0 32px rgba(0, 0, 0, 0.4);
+  --backdrop: rgba(4, 6, 5, 0.62);
+
+  color-scheme: dark;
+}
+
+/* =============================================================================
+   LIGHT THEME — 2.2 (mirrors DESIGN.md light values)
+   ========================================================================== */
+:root[data-theme="light"] {
+  --canvas: #ffffff;
+  --surface: #f4f6f2;
+  --surface-raised: #ffffff;
+  --surface-inset: #eef1ec;
+  --border: #e3e7e1;
+  --border-strong: #c8cec6;
+
+  --ink: #0e0f0c;
+  --body: #454745;
+  --mute: #868685;
+
+  --accent-offensive: #5fa834;
+  --accent-offensive-hover: #4e9028;
+  --on-accent-offensive: #0e130c;
+  --accent-defensive: #0f8fc4;
+  --accent-defensive-hover: #0b7aad;
+  --on-accent-defensive: #04141c;
+  --accent-neutral: #6f7873;
+  --accent-neutral-hover: #5c645f;
+  --on-accent-neutral: #ffffff;
+
+  /* Severity (light column) — 2.2 */
+  --sev-critical: #d03238;
+  --sev-high: #c9640f;
+  --sev-medium: #b86700;
+  --sev-low: #2072a7;
+  --sev-info: #5f6862;
+  --sev-critical-bg: rgba(208, 50, 56, 0.1);
+  --sev-high-bg: rgba(201, 100, 15, 0.1);
+  --sev-medium-bg: rgba(184, 103, 0, 0.1);
+  --sev-low-bg: rgba(32, 114, 167, 0.1);
+  --sev-info-bg: rgba(95, 104, 98, 0.1);
+
+  --positive: #2f9e52;
+  --warning: #b86700;
+  --negative: #d03238;
+  --positive-bg: rgba(47, 158, 82, 0.1);
+  --warning-bg: rgba(184, 103, 0, 0.1);
+  --negative-bg: rgba(208, 50, 56, 0.1);
+
+  --shadow-3: 0 8px 24px rgba(20, 30, 25, 0.14);
+  --shadow-drawer: -8px 0 32px rgba(20, 30, 25, 0.12);
+  --backdrop: rgba(40, 48, 44, 0.28);
+
+  color-scheme: light;
+}
+
+/* =============================================================================
+   PROFILE ACCENT ALIASING — 2.1 principle 2
+   --accent / --on-accent are set once on the profile root and cascade.
+   ========================================================================== */
+[data-profile="offensive"] {
+  --accent: var(--accent-offensive);
+  --accent-hover: var(--accent-offensive-hover);
+  --on-accent: var(--on-accent-offensive);
+  --accent-ring: rgba(159, 232, 112, 0.4);
+}
+[data-profile="defensive"] {
+  --accent: var(--accent-defensive);
+  --accent-hover: var(--accent-defensive-hover);
+  --on-accent: var(--on-accent-defensive);
+  --accent-ring: rgba(56, 200, 255, 0.4);
+}
+[data-profile="neutral"],
+:root {
+  --accent: var(--accent-neutral);
+  --accent-hover: var(--accent-neutral-hover);
+  --on-accent: var(--on-accent-neutral);
+  --accent-ring: rgba(197, 203, 198, 0.4);
+}
+
+/* Scope / approval semantic aliases — 2.2 */
+:root {
+  --scope-ok: var(--positive);
+  --scope-blocked: var(--negative);
+  --approval-pending: var(--warning);
+}

@@ -1,0 +1,186 @@
+/* =============================================================================
+   Defensive profile — screen layouts (§6)
+   ========================================================================== */
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* health ring */
+.healthRing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* ATT&CK heatmap */
+.heatmap {
+  display: grid;
+  gap: 3px;
+  overflow-x: auto;
+}
+.heatCell {
+  aspect-ratio: 1;
+  min-width: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+.heatCell:hover {
+  transform: scale(1.08);
+  border-color: var(--border-strong);
+}
+.heatLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  text-align: center;
+}
+
+/* hypothesis board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  align-items: start;
+}
+.boardCol {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-height: 160px;
+}
+.boardColHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-xs);
+}
+.hypCard {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  cursor: grab;
+}
+.hypCard:hover {
+  border-color: var(--border-strong);
+}
+
+/* case timeline */
+.caseGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.timeline {
+  position: relative;
+  padding-left: var(--space-xl);
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--border);
+}
+.tlItem {
+  position: relative;
+  padding-bottom: var(--space-lg);
+}
+.tlDot {
+  position: absolute;
+  left: calc(-1 * var(--space-xl) + 2px);
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--canvas);
+  background: var(--accent);
+}
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+/* detection engineering */
+.detectSplit {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.sigmaEditor {
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.sigmaTextarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--body);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  line-height: var(--lh-mono-sm);
+  padding: var(--space-md);
+  min-height: 260px;
+  resize: vertical;
+  outline: none;
+}
+.draftCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 1023px) {
+  .overviewGrid,
+  .caseGrid,
+  .detectSplit {
+    grid-template-columns: 1fr;
+  }
+  .board {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 767px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}

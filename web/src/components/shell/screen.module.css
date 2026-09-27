@@ -1,0 +1,39 @@
+.scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+.bleed {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 767px) {
+  .scroll {
+    padding: var(--space-lg) var(--space-lg);
+    gap: var(--space-lg);
+  }
+}

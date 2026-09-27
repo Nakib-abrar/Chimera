@@ -1,0 +1,346 @@
+/* =============================================================================
+   Offensive profile — screen layouts (§5)
+   ========================================================================== */
+
+/* ---------- Live Ops Console (§5.4) ---------- */
+.console {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+.orchTree {
+  border-right: 1px solid var(--border);
+  padding: var(--space-md);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  background: var(--surface);
+}
+.orchNode {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.orchNode:hover {
+  background: var(--surface-raised);
+}
+.orchNode[data-role="orchestrator"] {
+  border-color: var(--border);
+  background: var(--surface-inset);
+}
+.orchNodeTop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.orchNodeSub {
+  padding-left: var(--space-md);
+}
+.consoleMain {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.consoleTabWrap {
+  padding: var(--space-md) var(--space-lg) 0;
+  flex: none;
+}
+.consolePanel {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--space-lg);
+}
+
+/* Task list */
+.taskRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.taskGrip {
+  color: var(--mute);
+  cursor: grab;
+}
+.taskCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-strong);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.taskCheck[data-done="true"] {
+  background: var(--positive);
+  border-color: var(--positive);
+  color: var(--on-accent);
+}
+
+/* ---------- Target cards ---------- */
+.targetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+.techTag {
+  font-size: var(--fs-caption);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  color: var(--body);
+}
+
+/* ---------- Findings groups (§5.7) ---------- */
+.sevGroup {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+.sevGroupHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  cursor: pointer;
+  border-left: 3px solid var(--sev);
+  background: var(--surface);
+}
+.findingRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+.findingRow:hover {
+  background: var(--surface-raised);
+}
+.evidenceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-sm);
+}
+.evidenceTile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-inset);
+}
+.evidenceIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex: none;
+}
+
+/* ---------- Approval queue (§5.8) ---------- */
+.approvalCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.approvalCard[data-loud="true"] {
+  border-left: 3px solid var(--warning);
+}
+.originChip {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  color: var(--mute);
+}
+
+/* ---------- Report Studio (§5.9) ---------- */
+.reportSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.reportPreview {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-inset);
+  padding: var(--space-xl);
+  min-height: 400px;
+  overflow-y: auto;
+}
+.reportPreview h1 {
+  font-size: var(--fs-heading-lg);
+  margin-bottom: var(--space-md);
+}
+.reportPreview h2 {
+  font-size: var(--fs-heading-md);
+  margin: var(--space-lg) 0 var(--space-sm);
+}
+.reportPreview p {
+  margin-bottom: var(--space-sm);
+  color: var(--body);
+  font-size: var(--fs-body-sm);
+}
+.stepper {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+.stepDot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--mute);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+}
+.stepNum {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-caption);
+}
+.stepDot[data-active="true"] {
+  color: var(--ink);
+}
+.stepDot[data-active="true"] .stepNum {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.stepDot[data-done="true"] .stepNum {
+  background: var(--positive);
+  border-color: var(--positive);
+  color: var(--on-accent);
+}
+.stepLine {
+  width: 28px;
+  height: 1px;
+  background: var(--border-strong);
+}
+.formatCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  background: var(--surface);
+  transition: border-color var(--motion-fast) var(--ease-out);
+}
+.formatCard[data-selected="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.formatCard:hover {
+  border-color: var(--border-strong);
+}
+
+/* ---------- Skills & Tools (§5.10) ---------- */
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+.skillCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.toolRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+/* ---------- Scope editor (§5.3) ---------- */
+.scopeSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.scopeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-inset);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  margin-bottom: var(--space-xs);
+}
+
+/* stepper modal progress rail */
+.stepRail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding-right: var(--space-lg);
+  border-right: 1px solid var(--border);
+  min-width: 150px;
+}
+.stepRailItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--mute);
+  font-size: var(--fs-body-sm);
+}
+.stepRailItem[data-active="true"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 1023px) {
+  .console {
+    grid-template-columns: 1fr;
+  }
+  .orchTree {
+    display: none;
+  }
+  .reportSplit,
+  .scopeSplit {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,385 @@
+/* =============================================================================
+   Chimera Console — Base / global styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  font-weight: 400;
+  color: var(--body);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow: hidden; /* app shell manages its own scroll regions */
+}
+
+#root {
+  isolation: isolate;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+svg {
+  display: block;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+/* -----------------------------------------------------------------------------
+   Focus rings — 9.3 (always visible in the accent, never suppressed)
+   -------------------------------------------------------------------------- */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* -----------------------------------------------------------------------------
+   Selection
+   -------------------------------------------------------------------------- */
+::selection {
+  background: var(--accent-ring);
+  color: var(--ink);
+}
+
+/* -----------------------------------------------------------------------------
+   Scrollbars — recede, don't compete with data (2.1 principle 6)
+   -------------------------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-pill);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--mute);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+/* -----------------------------------------------------------------------------
+   Typography utility classes — 2.3
+   -------------------------------------------------------------------------- */
+.t-display-lg {
+  font-size: var(--fs-display-lg);
+  line-height: var(--lh-display-lg);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.t-display-md {
+  font-size: var(--fs-display-md);
+  line-height: var(--lh-display-md);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.t-heading-lg {
+  font-size: var(--fs-heading-lg);
+  line-height: var(--lh-heading-lg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.t-heading-md {
+  font-size: var(--fs-heading-md);
+  line-height: var(--lh-heading-md);
+  font-weight: 600;
+  color: var(--ink);
+}
+.t-heading-sm {
+  font-size: var(--fs-heading-sm);
+  line-height: var(--lh-heading-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+.t-body-md {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  font-weight: 400;
+}
+.t-body-md-strong {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  font-weight: 600;
+  color: var(--ink);
+}
+.t-body-sm {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  font-weight: 400;
+}
+.t-caption {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  font-weight: 500;
+  color: var(--mute);
+}
+.t-caption-caps {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.t-mono-md {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-md);
+  line-height: var(--lh-mono-md);
+  font-weight: 400;
+}
+.t-mono-sm {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  line-height: var(--lh-mono-sm);
+  font-weight: 400;
+}
+.t-mute {
+  color: var(--mute);
+}
+.t-ink {
+  color: var(--ink);
+}
+.t-body {
+  color: var(--body);
+}
+
+/* -----------------------------------------------------------------------------
+   Small shared helpers
+   -------------------------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.gap-xs {
+  gap: var(--space-xs);
+}
+.gap-sm {
+  gap: var(--space-sm);
+}
+.gap-md {
+  gap: var(--space-md);
+}
+.gap-lg {
+  gap: var(--space-lg);
+}
+.gap-xl {
+  gap: var(--space-xl);
+}
+.grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.center {
+  align-items: center;
+  justify-content: center;
+}
+.between {
+  justify-content: space-between;
+}
+
+/* -----------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes chimera-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes chimera-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes chimera-drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes chimera-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes chimera-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes chimera-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes chimera-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+@keyframes chimera-shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive table columns — drop low-priority columns on small screens (9.1)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  [data-hide="tablet"] {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  [data-hide="mobile"] {
+    display: none !important;
+  }
+}
+
+/* No horizontal page scroll on small screens (9.1) */
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Reduced motion — 9.3 / 9.5
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

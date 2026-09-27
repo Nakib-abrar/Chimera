@@ -1,0 +1,197 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  background: var(--canvas);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  touch-action: none;
+}
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+.svg:active {
+  cursor: grabbing;
+}
+
+.node {
+  cursor: pointer;
+}
+.nodeLabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  fill: var(--body);
+  pointer-events: none;
+  text-anchor: middle;
+}
+.nodeLabelStrong {
+  fill: var(--ink);
+  font-weight: 600;
+}
+.clusterBadge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--on-accent);
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+.edge {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  fill: none;
+}
+.edgeLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--mute);
+  text-anchor: middle;
+}
+
+/* chrome overlays */
+.chromeTL {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  display: flex;
+  gap: var(--space-sm);
+  z-index: 2;
+}
+.chromeTR {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  z-index: 2;
+}
+.chromeBL {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  z-index: 2;
+}
+.chromeBR {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+}
+.toolGroup {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.toolBtn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--body);
+  border-right: 1px solid var(--border);
+}
+.toolBtn:last-child {
+  border-right: none;
+}
+.toolBtn:hover {
+  background: var(--surface-raised);
+  color: var(--ink);
+}
+.toolBtn svg {
+  width: 17px;
+  height: 17px;
+}
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-sm);
+  height: 34px;
+}
+.searchBox input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 130px;
+  font-size: var(--fs-body-sm);
+  color: var(--ink);
+}
+.searchBox svg {
+  width: 15px;
+  height: 15px;
+  color: var(--mute);
+}
+.legend {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 200px;
+  backdrop-filter: blur(6px);
+}
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-caption);
+  color: var(--body);
+}
+.legendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  flex: none;
+}
+.minimap {
+  width: 140px;
+  height: 96px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+.minimapRect {
+  fill: var(--accent-ring);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.hint {
+  position: absolute;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-caption);
+  color: var(--mute);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
